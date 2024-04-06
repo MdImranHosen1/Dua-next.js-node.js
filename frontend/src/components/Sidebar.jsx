@@ -22,7 +22,7 @@ const sidebarButton = [
 const Sidebar = () => {
   console.log("sidebarButton", sidebarButton);
   return (
-    <div className="flex flex-col justify-between bg-[#FFFFFF] w-[100px] h-[927px] p-2 m-5 ml-8 rounded-xl">
+    <div className="flex flex-col justify-between bg-[#FFFFFF] w-[120px] h-[927px] p-2 m-5 ml-8 rounded-xl border">
       <div className="mt-5 p-1">
         <Image
           className="bg-[#1FA45B] p-1 rounded-xl"
