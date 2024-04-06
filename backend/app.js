@@ -1,11 +1,15 @@
 // Import required modules
 const express = require('express');
 const sqlite3 = require('sqlite3');
+const cors = require('cors');
 
 const app = express();
-const port = 3000;
+const port = 5000;
 
 const db = new sqlite3.Database('./data/dua_main.sqlite');
+
+// Enable CORS for all routes
+app.use(cors());
 
 // Define a route to retrieve data
 app.get('/dua', (req, res) => {

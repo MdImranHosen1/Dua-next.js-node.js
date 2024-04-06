@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${inter.className} flex justify-between`}>
         <Sidebar />
-        {children}
+        <main className="flex-1">{children}</main>
         <ProfileDropdown />
       </body>
     </html>
