@@ -12,8 +12,8 @@ const db = new sqlite3.Database('./data/dua_main.sqlite');
 app.use(cors());
 
 // Define a route to retrieve data
-app.get('/dua', (req, res) => {
-    db.all('SELECT * FROM dua', (err, rows) => {
+app.get('/dua/:cId/:scId', (req, res) => {
+    db.all(`SELECT * FROM dua where cat_id=${req.params.cId} AND subcat_id=${req.params.scId}`, (err, rows) => {
         if (err) {
             res.status(500).send(err.message);
         } else {
@@ -32,10 +32,9 @@ app.get('/category', (req, res) => {
         }
     });
 });
-
 // Define a route to retrieve data
-app.get('/sub_category', (req, res) => {
-    db.all('SELECT * FROM sub_category', (err, rows) => {
+app.get('/sub_category/:id', (req, res) => {
+    db.all(`SELECT * FROM sub_category WHERE cat_id=${req.params.id}`, (err, rows) => {
         if (err) {
             res.status(500).send(err.message);
         } else {
