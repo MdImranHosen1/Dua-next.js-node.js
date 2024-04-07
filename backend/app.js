@@ -4,12 +4,19 @@ const sqlite3 = require('sqlite3');
 const cors = require('cors');
 
 const app = express();
-const port = 5000;
+const PORT = 5000;
 
 const db = new sqlite3.Database('./data/dua_main.sqlite');
 
 // Enable CORS for all routes
 app.use(cors());
+
+// Define your routes here
+app.get('/', (req, res) => {
+    res.send('Hello from your Node.js backend!');
+});
+
+
 
 // Define a route to retrieve data
 app.get('/sub_category/dua/:cId/:scId', (req, res) => {
@@ -79,7 +86,10 @@ app.get('/sub_category/section/:cId/:scId', (req, res) => {
 
 
 
+
+
+
 // Start the server
-app.listen(port, () => {
+app.listen(POST, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
