@@ -16,7 +16,16 @@ app.get('/', (req, res) => {
     res.send('Hello from your Node.js backend!');
 });
 
-
+// Define a route to retrieve data
+app.get('/category', (req, res) => {
+    db.all('SELECT * FROM category', (err, rows) => {
+        if (err) {
+            res.status(500).send(err.message);
+        } else {
+            res.json(rows);
+        }
+    });
+});
 
 // Define a route to retrieve data
 app.get('/sub_category/dua/:cId/:scId', (req, res) => {
@@ -40,16 +49,7 @@ app.get('/category/dua/:cId', (req, res) => {
     });
 });
 
-// Define a route to retrieve data
-app.get('/category', (req, res) => {
-    db.all('SELECT * FROM category', (err, rows) => {
-        if (err) {
-            res.status(500).send(err.message);
-        } else {
-            res.json(rows);
-        }
-    });
-});
+
 // Define a route to retrieve data
 app.get('/sub_category/:cId', (req, res) => {
     db.all(`SELECT * FROM sub_category WHERE cat_id=${req.params.cId}`, (err, rows) => {

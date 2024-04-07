@@ -9,7 +9,7 @@ import shareIcon from "../../public/images/duaCat/share.png";
 import infoIcon from "../../public/images/duaCat/info.png";
 
 const iconList = [copyIcon, bookmarkIcon, lightbulbIcon, shareIcon, infoIcon];
-
+const url = "https://dua-next-js-node-js-1.onrender.com";
 
 const Dua = ({ cId = 1, scId=undefined }) => {
   const [dua, setDua] = useState(null);
@@ -30,14 +30,14 @@ const Dua = ({ cId = 1, scId=undefined }) => {
       let duaResponse, sectionResponse;
        if (scId === undefined) {
          [duaResponse, sectionResponse] = await Promise.all([
-           axios.get(`http://localhost:5000/category/dua/${cId}`),
-           axios.get(`http://localhost:5000/category/section/${cId}`),
+           axios.get(`${url}/category/dua/${cId}`),
+           axios.get(`${url}/category/section/${cId}`),
          ]);
        } else {
          [duaResponse, sectionResponse] = await Promise.all([
-           axios.get(`http://localhost:5000/sub_category/dua/${cId}/${scId}`),
+           axios.get(`${url}/sub_category/dua/${cId}/${scId}`),
            axios.get(
-             `http://localhost:5000/sub_category/section/${cId}/${scId}`
+             `${url}/sub_category/section/${cId}/${scId}`
            ),
          ]);
        }

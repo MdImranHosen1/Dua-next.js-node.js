@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios"; 
-
+const url = "https://dua-next-js-node-js-1.onrender.com";
 const SubCategorie = ({ id=1, onSubCategoryClick }) => {
   const [subCategories, setSubCategories] = useState(null);
   const [activeSubCategorie,setActiveSubCategorie]=useState(null);
 
   const getSubCategories = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/sub_category/${id}`
-      );
+      const response = await axios.get(`${url}/sub_category/${id}`);
       setSubCategories(response.data);
     } catch (error) {
       console.error("Error fetching subCategories:", error);

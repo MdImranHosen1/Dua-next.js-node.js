@@ -15,7 +15,7 @@ export default function Home() {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/category");
+      const response = await axios.get(`${url}/category`);
       setCategories(response.data);
 
     } catch (error) {
