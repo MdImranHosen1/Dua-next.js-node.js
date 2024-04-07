@@ -90,6 +90,6 @@ app.get('/sub_category/section/:cId/:scId', (req, res) => {
 
 
 // Start the server
-app.listen(POST, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
