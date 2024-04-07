@@ -9,8 +9,8 @@ import Dua from "@/components/Dua";
 
 export default function Home() {
   const [categories, setCategories] = useState([]);
-  const [CategoriesId, CetcategoriesId] = useState(-1);
-  const [subCategoryId, setSubCategoryId] = useState(1);
+  const [categoriesId, setCategoriesId] = useState(-1);
+  const [subCategoryId, setSubCategoryId] = useState(undefined);
 
 
   const fetchCategories = async () => {
@@ -21,16 +21,21 @@ export default function Home() {
     } catch (error) {
       console.error("Error fetching categories:", error);
     }
-  };
+  }
 
   useEffect(() => {
     fetchCategories();
   }, []);
 
+  const handleCategoryClick = (cId) => {
+    setCategoriesId(cId === categoriesId ? -1 : cId);
+    setSubCategoryId(undefined);
+  }
+
+
   const handleSubCategoryClick = (subCategoryId) => {
-    console.log("Subcategory ID clicked:", CategoriesId, subCategoryId);
     setSubCategoryId(subCategoryId);
-  };
+  }
 
   return (
     <main className="flex pt-10 flex-col w-full">
@@ -94,7 +99,7 @@ export default function Home() {
             <div>
               {categories && categories.map((category) => (
                 <div key={category.id}>
-                  <div className={`flex w-full ${category.cat_id === CategoriesId ? "bg-[#E8F0F5]" : ""} rounded-xl mt-3 cursor-pointer`} onClick={() => CetcategoriesId(category.cat_id === CategoriesId ? -1 : category.cat_id)}>
+                  <div className={`flex w-full ${category.cat_id === categoriesId ? "bg-[#E8F0F5]" : ""} rounded-xl mt-3 cursor-pointer`} onClick={() => handleCategoryClick(category.cat_id)}>
 
                     <div className="w-24 h-16 bg-[#CFE0E5] m-3 rounded-xl">
                       <Image src={duaImg} className="w-full h-full object-cover" />
@@ -111,7 +116,7 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                  {category.cat_id === CategoriesId && (
+                  {category.cat_id === categoriesId && (
                     <SubCategorie
                       id={category.cat_id}
                       onSubCategoryClick={handleSubCategoryClick}
@@ -125,7 +130,7 @@ export default function Home() {
         </div>
         {/* Dua */}
         <div>
-          <Dua cId={CategoriesId === -1 ? 1 : CategoriesId} scId={subCategoryId} />
+          <Dua cId={categoriesId === -1 ? 1 : categoriesId} scId={subCategoryId} />
         </div>
       </div>
 

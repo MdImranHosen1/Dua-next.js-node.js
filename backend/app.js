@@ -12,8 +12,19 @@ const db = new sqlite3.Database('./data/dua_main.sqlite');
 app.use(cors());
 
 // Define a route to retrieve data
-app.get('/dua/:cId/:scId', (req, res) => {
-    db.all(`SELECT * FROM dua where cat_id=${req.params.cId} AND subcat_id=${req.params.scId}`, (err, rows) => {
+app.get('/sub_category/dua/:cId/:scId', (req, res) => {
+    db.all(`SELECT * FROM dua where subcat_id=${req.params.scId} AND cat_id=${req.params.cId}`, (err, rows) => {
+        if (err) {
+            res.status(500).send(err.message);
+        } else {
+            res.json(rows);
+        }
+    });
+});
+
+// Define a route to retrieve data
+app.get('/category/dua/:cId', (req, res) => {
+    db.all(`SELECT * FROM dua where cat_id=${req.params.cId}`, (err, rows) => {
         if (err) {
             res.status(500).send(err.message);
         } else {
@@ -45,8 +56,8 @@ app.get('/sub_category/:cId', (req, res) => {
 
 
 // Define a route to retrieve data section
-app.get('/section/:cId/:scId', (req, res) => {
-    db.all(`SELECT subcat_name_en FROM sub_category where cat_id=${req.params.cId} AND subcat_id=${req.params.scId}`, (err, rows) => {
+app.get('/category/section/:cId', (req, res) => {
+    db.all(`SELECT cat_name_en FROM category where cat_id=${req.params.cId} `, (err, rows) => {
         if (err) {
             res.status(500).send(err.message);
         } else {
@@ -54,6 +65,19 @@ app.get('/section/:cId/:scId', (req, res) => {
         }
     });
 });
+
+// Define a route to retrieve data section
+app.get('/sub_category/section/:cId/:scId', (req, res) => {
+    db.all(`SELECT subcat_name_en FROM sub_category where subcat_id=${req.params.scId} AND cat_id=${req.params.cId}`, (err, rows) => {
+        if (err) {
+            res.status(500).send(err.message);
+        } else {
+            res.json(rows);
+        }
+    });
+});
+
+
 
 // Start the server
 app.listen(port, () => {
