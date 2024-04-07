@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -6,24 +6,22 @@ import searchImg from "../../public/images/other/search.png";
 import duaImg from "../../public/images/other/dua.png";
 import SubCategorie from "@/components/SubCategorie";
 import Dua from "@/components/Dua";
-const url = "https://dua-next-js-node-js-1.onrender.com";
 
+const url = "https://dua-next-js-node-js-1.onrender.com";
 
 export default function Home() {
   const [categories, setCategories] = useState([]);
   const [categoriesId, setCategoriesId] = useState(-1);
   const [subCategoryId, setSubCategoryId] = useState(undefined);
 
-
   const fetchCategories = async () => {
     try {
       const response = await axios.get(`${url}/category`);
       setCategories(response.data);
-
     } catch (error) {
       console.error("Error fetching categories:", error);
     }
-  }
+  };
 
   useEffect(() => {
     fetchCategories();
@@ -32,12 +30,11 @@ export default function Home() {
   const handleCategoryClick = (cId) => {
     setCategoriesId(cId === categoriesId ? -1 : cId);
     setSubCategoryId(undefined);
-  }
-
+  };
 
   const handleSubCategoryClick = (subCategoryId) => {
     setSubCategoryId(subCategoryId);
-  }
+  };
 
   return (
     <main className="flex pt-10 flex-col w-full">
@@ -64,11 +61,9 @@ export default function Home() {
         </div>
       </div>
 
-
-
-      <div className="flex rounded-lg mt-5">
-        {/* categories */}
-        <div className="bg-[#FFFFFF] w-[450px] h-full rounded-lg mb-10 border">
+      <div className="flex rounded-lg mt-5 w-full">
+        {/* Categories sidebar */}
+        <div className="bg-[#FFFFFF] w-[400px]  h-full rounded-lg mb-10 border">
           <div className="flex w-full text-[20px] justify-center bg-[#1FA45B] h-16 items-center rounded-t-lg text-white font-bold">
             Categories
           </div>
@@ -99,48 +94,55 @@ export default function Home() {
             </div>
             {/* list of categories */}
             <div>
-              {categories && categories.map((category) => (
-                <div key={category.id}>
-                  <div className={`flex w-full ${category.cat_id === categoriesId ? "bg-[#E8F0F5]" : ""} rounded-xl mt-3 cursor-pointer`} onClick={() => handleCategoryClick(category.cat_id)}>
-
-                    <div className="w-24 h-16 bg-[#CFE0E5] m-3 rounded-xl">
-                      <Image src={duaImg} className="w-full h-full object-cover" />
-                    </div>
-                    <div className="flex w-full  justify-center p-3">
-                      <div className="flex flex-col w-full justify-between  ">
-                        <div className="font-medium text-[20px]">{category.cat_name_en}</div>
-                        <div className="text-[18px] opacity-85">Subcategory: {category.no_of_subcat}</div>
+              {categories &&
+                categories.map((category) => (
+                  <div key={category.id}>
+                    <div
+                      className={`flex w-full ${category.cat_id === categoriesId
+                        ? "bg-[#E8F0F5]"
+                        : ""
+                        } rounded-xl mt-3 cursor-pointer`}
+                      onClick={() => handleCategoryClick(category.cat_id)}
+                    >
+                      <div className="w-24 h-16 bg-[#CFE0E5] m-3 rounded-xl">
+                        <Image
+                          src={duaImg}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                      <div className="flex  flex-col justify-between items-center  ">
-                        <div className="font-medium text-[20px]">{category.no_of_dua}</div>
-                        <div className=" text-[18px] opacity-85">Duas</div>
-
+                      <div className="flex w-full  justify-center p-3">
+                        <div className="flex flex-col w-full justify-between  ">
+                          <div className="font-medium text-[20px]">
+                            {category.cat_name_en}
+                          </div>
+                          <div className="text-[18px] opacity-85">
+                            Subcategory: {category.no_of_subcat}
+                          </div>
+                        </div>
+                        <div className="flex  flex-col justify-between items-center  ">
+                          <div className="font-medium text-[20px]">
+                            {category.no_of_dua}
+                          </div>
+                          <div className=" text-[18px] opacity-85">Duas</div>
+                        </div>
                       </div>
                     </div>
+                    {category.cat_id === categoriesId && (
+                      <SubCategorie
+                        id={category.cat_id}
+                        onSubCategoryClick={handleSubCategoryClick}
+                      />
+                    )}
                   </div>
-                  {category.cat_id === categoriesId && (
-                    <SubCategorie
-                      id={category.cat_id}
-                      onSubCategoryClick={handleSubCategoryClick}
-                    />
-                  )}
-                </div>
-
-              ))}
+                ))}
             </div>
           </div>
         </div>
-        {/* Dua */}
-        <div>
+        {/* Dua container */}
+        <div className="flex-1">
           <Dua cId={categoriesId === -1 ? 1 : categoriesId} scId={subCategoryId} />
         </div>
       </div>
-
-
-
-
-
-
     </main>
   );
 }
