@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import icon from "../../public/images/other/allah.png";
 import Image from "next/image";
+import icon from "../../public/images/duaCat/allah.png";
+import copyIcon from "../../public/images/duaCat/copy.png";
+import bookmarkIcon from "../../public/images/duaCat/bookmark.png";
+import lightbulbIcon from "../../public/images/duaCat/lightbulb.png";
+import shareIcon from "../../public/images/duaCat/share.png";
+import infoIcon from "../../public/images/duaCat/info.png";
+
+const iconList = [copyIcon, bookmarkIcon, lightbulbIcon, shareIcon, infoIcon];
+
 
 const Dua = ({ cId = 1, scId=undefined }) => {
   const [dua, setDua] = useState(null);
@@ -147,6 +155,21 @@ const Dua = ({ cId = 1, scId=undefined }) => {
                 </audio>
               </div>
             )}
+            <div className="flex w-full justify-end ">
+              {iconList.map(
+                (
+                  value,
+                  index 
+                ) => (
+                  <div className="w-6 h-6 ml-8 flex cursor-pointer opacity-70 mt-5" key={index}>
+                    {" "}
+                   
+                    <Image src={value} alt="" />
+                  </div>
+                )
+              )}
+            </div>
+
             <div className="mb-5"></div>
           </div>
         ))}
