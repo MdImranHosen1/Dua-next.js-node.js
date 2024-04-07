@@ -6,6 +6,8 @@ import searchImg from "../../public/images/other/search.png";
 import duaImg from "../../public/images/other/dua.png";
 import SubCategorie from "@/components/SubCategorie";
 import Dua from "@/components/Dua";
+const url = "https://dua-next-js-node-js-1.onrender.com";
+
 
 export default function Home() {
   const [categories, setCategories] = useState([]);

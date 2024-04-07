@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios"; 
 const url = "https://dua-next-js-node-js-1.onrender.com";
+
+
 const SubCategorie = ({ id=1, onSubCategoryClick }) => {
   const [subCategories, setSubCategories] = useState(null);
   const [activeSubCategorie,setActiveSubCategorie]=useState(null);
