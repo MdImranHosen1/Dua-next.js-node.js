@@ -14,7 +14,7 @@ const textArr = [
 
 const ProfileDropdown = () => {
   return (
-    <div className="flex flex-col   p-2 m-5 ml-8 rounded-xl items-end">
+    <div className="flex flex-col   p-2 m-5  rounded-xl items-end">
       <div className=" w-[50px]  flex justify-between  items-center mr-5">
         <Image
           className="rounded-full bg-[#3D454E]"
