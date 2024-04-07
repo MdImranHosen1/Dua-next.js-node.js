@@ -11,13 +11,17 @@ const url = "https://dua-next-js-node-js-1.onrender.com";
 
 export default function Home() {
   const [categories, setCategories] = useState([]);
+  const [tempCategories, setTempCategories] = useState([]);
   const [categoriesId, setCategoriesId] = useState(-1);
   const [subCategoryId, setSubCategoryId] = useState(undefined);
+  const [searchCategory, setSearchCategory] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const fetchCategories = async () => {
     try {
       const response = await axios.get(`${url}/category`);
       setCategories(response.data);
+      setTempCategories(response.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
     }
@@ -36,6 +40,17 @@ export default function Home() {
     setSubCategoryId(subCategoryId);
   };
 
+  useEffect(() => {
+ 
+    setCategories(tempCategories);
+    if(searchCategory){
+    const filteredDua = tempCategories.filter((item) =>
+      item.cat_name_en.toLowerCase().includes(searchCategory.toLowerCase())
+    );
+      setCategories(filteredDua);
+  }
+}, [searchCategory, tempCategories]);
+
   return (
     <main className="flex pt-10 flex-col w-full">
       <div className="flex w-full justify-between items-center">
@@ -48,6 +63,8 @@ export default function Home() {
                 className="block p-4  text-sm text-gray-900 border border-gray-300 rounded-lg bg-[#FFFFFF] focus:ring-blue-500 focus:border-blue-500 w-[350px]"
                 placeholder="Search by Dua Name"
                 required
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
 
               <button
@@ -75,6 +92,8 @@ export default function Home() {
                     type="search"
                     className="block p-4  text-sm text-gray-900 border border-gray-300 rounded-lg bg-[#FFFFFF] focus:ring-blue-500 focus:border-blue-500 w-full"
                     placeholder="Search by Categories Name"
+                    value={searchCategory}
+                    onChange={(e) => setSearchCategory(e.target.value)}
                     required
                   />
 
@@ -140,7 +159,7 @@ export default function Home() {
         </div>
         {/* Dua container */}
         <div className="flex-1">
-          <Dua cId={categoriesId === -1 ? 1 : categoriesId} scId={subCategoryId} />
+          <Dua cId={categoriesId === -1 ? 1 : categoriesId} scId={subCategoryId} searchQuery={searchQuery} />
         </div>
       </div>
     </main>

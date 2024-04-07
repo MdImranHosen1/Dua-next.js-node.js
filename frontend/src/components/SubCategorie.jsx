@@ -18,7 +18,6 @@ const SubCategorie = ({ id=1, onSubCategoryClick }) => {
 
   useEffect(() => {
     getSubCategories();
-    
   }, [id]); 
 
   const handleSubCategoryClick = (subCategoryId) => {

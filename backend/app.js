@@ -11,12 +11,12 @@ const db = new sqlite3.Database('./data/dua_main.sqlite');
 // Enable CORS for all routes
 app.use(cors());
 
-// Define your routes here
+
 app.get('/', (req, res) => {
     res.send('Hello from your Node.js backend!');
 });
 
-// Define a route to retrieve data
+
 app.get('/category', (req, res) => {
     db.all('SELECT * FROM category', (err, rows) => {
         if (err) {
@@ -27,18 +27,7 @@ app.get('/category', (req, res) => {
     });
 });
 
-// Define a route to retrieve data
-app.get('/sub_category/dua/:cId/:scId', (req, res) => {
-    db.all(`SELECT * FROM dua where subcat_id=${req.params.scId} AND cat_id=${req.params.cId}`, (err, rows) => {
-        if (err) {
-            res.status(500).send(err.message);
-        } else {
-            res.json(rows);
-        }
-    });
-});
 
-// Define a route to retrieve data
 app.get('/category/dua/:cId', (req, res) => {
     db.all(`SELECT * FROM dua where cat_id=${req.params.cId}`, (err, rows) => {
         if (err) {
@@ -49,8 +38,6 @@ app.get('/category/dua/:cId', (req, res) => {
     });
 });
 
-
-// Define a route to retrieve data
 app.get('/sub_category/:cId', (req, res) => {
     db.all(`SELECT * FROM sub_category WHERE cat_id=${req.params.cId}`, (err, rows) => {
         if (err) {
@@ -62,7 +49,18 @@ app.get('/sub_category/:cId', (req, res) => {
 });
 
 
-// Define a route to retrieve data section
+app.get('/sub_category/dua/:cId/:scId', (req, res) => {
+    db.all(`SELECT * FROM dua where subcat_id=${req.params.scId} AND cat_id=${req.params.cId}`, (err, rows) => {
+        if (err) {
+            res.status(500).send(err.message);
+        } else {
+            res.json(rows);
+        }
+    });
+});
+
+
+
 app.get('/category/section/:cId', (req, res) => {
     db.all(`SELECT cat_name_en FROM category where cat_id=${req.params.cId} `, (err, rows) => {
         if (err) {
@@ -73,7 +71,7 @@ app.get('/category/section/:cId', (req, res) => {
     });
 });
 
-// Define a route to retrieve data section
+
 app.get('/sub_category/section/:cId/:scId', (req, res) => {
     db.all(`SELECT subcat_name_en FROM sub_category where subcat_id=${req.params.scId} AND cat_id=${req.params.cId}`, (err, rows) => {
         if (err) {
