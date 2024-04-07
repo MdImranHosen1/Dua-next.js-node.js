@@ -33,8 +33,8 @@ app.get('/category', (req, res) => {
     });
 });
 // Define a route to retrieve data
-app.get('/sub_category/:id', (req, res) => {
-    db.all(`SELECT * FROM sub_category WHERE cat_id=${req.params.id}`, (err, rows) => {
+app.get('/sub_category/:cId', (req, res) => {
+    db.all(`SELECT * FROM sub_category WHERE cat_id=${req.params.cId}`, (err, rows) => {
         if (err) {
             res.status(500).send(err.message);
         } else {
@@ -43,6 +43,17 @@ app.get('/sub_category/:id', (req, res) => {
     });
 });
 
+
+// Define a route to retrieve data section
+app.get('/section/:cId/:scId', (req, res) => {
+    db.all(`SELECT subcat_name_en FROM sub_category where cat_id=${req.params.cId} AND subcat_id=${req.params.scId}`, (err, rows) => {
+        if (err) {
+            res.status(500).send(err.message);
+        } else {
+            res.json(rows);
+        }
+    });
+});
 
 // Start the server
 app.listen(port, () => {
